@@ -2,7 +2,8 @@ import withSession from "../../../lib/session";
 import prisma from "../../../lib/prisma";
 
 async function handleGetProducts(req, res) {
-      const { sellerId } = req.query;
+      const user = req.session.get('user');
+      const { sellerId } = req.body;
 
       if (!sellerId) {
             console.log(res)

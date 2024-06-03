@@ -13,6 +13,7 @@ const Products = () => {
 
       const handleSubmit = async (event: any) => {
             event.preventDefault();
+            console.log('Submitting form with subTypeId:', selectedSubProductTypeId);
 
             const response = await fetch('/api/product/product_create', {
                   method: 'POST',
@@ -25,14 +26,14 @@ const Products = () => {
                         price,
                         quantity,
                         typeId: selectedProductTypeId,
-                        subProductTypeId: selectedSubProductTypeId,
+                        subTypeId: selectedSubProductTypeId,
                   }),
             });
 
             if (response.ok) {
                   const product = await response.json();
                   console.log(product);
-                
+
             } else {
                   //todo: Handling error
             }
@@ -101,7 +102,10 @@ const Products = () => {
 
                               <SelectGroupOne
                                     onProductTypeChange={setSelectedProductTypeId}
-                                    onSubProductTypeChange={setSelectedSubProductTypeId}
+                                    onSubProductTypeChange={(id) => {
+                                          console.log('Sub product type selected with id:', id);
+                                          setSelectedSubProductTypeId(id);
+                                    }}
                               />
 
 

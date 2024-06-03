@@ -62,6 +62,7 @@ model SubType {
   products Product[]
   taxRateId    Int?         @unique
   @@index([productTypeId])
+  transactions Transaction[]
 }
 
 model TaxRate {
@@ -101,8 +102,10 @@ model Transaction {
   id              Int       @id @default(autoincrement())
   buyerId         Int
   buyer           BuyerProfile @relation(fields: [buyerId], references: [id])
-  productId       Int @unique
-  product         Product      @relation(fields: [productId], references: [id]) 
+  productId       Int 
+  product         Product      @relation(fields: [productId], references: [id])
+  subTypeId       Int 
+  subType         SubType      @relation(fields: [subTypeId], references: [id])
   quantity        Int
   totalPrice      Float
   paymentNumber   String
@@ -110,10 +113,13 @@ model Transaction {
   paymentStatus   PaymentStatus @default(PENDING)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
-  userId          Int @unique
+  userId          Int 
   user            User  @relation(fields: [userId], references: [id])
 
   @@index([buyerId])
+  @@index([userId])
+  @@index([subTypeId])
+  @@index([productId])
 }
 
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
 
+
 interface User {
   fullName: string;
   username: string;
@@ -17,6 +18,7 @@ interface User {
 async function signUp(user: User) {
   try {
     const response = await axios.post<User>('/api/auth/register', user);
+    console.log(response);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -45,9 +47,10 @@ const SignUp: React.FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const user = await signUp({ fullName, username, email, password, phone, address, role });
-    if (user) {
-      // The user was successfully created
-      console.log("User logged in succesfully")
+    console.log(user);
+    if (user?.role === "SELLER") {
+      <Link href="/ecommerce" />
+      console.log("Navigating to company profile")
     } else {
 
     }

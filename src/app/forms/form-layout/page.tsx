@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
+import SelectGroupOne from "@/components/SelectGroup/productTypeDropdown";
 import Link from "next/link";
 
 export const metadata: Metadata = {

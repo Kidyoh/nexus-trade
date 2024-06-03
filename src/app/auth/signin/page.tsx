@@ -1,15 +1,54 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Metadata } from "next";
+import axios from "axios";
+import { useState, FormEvent } from "react";
 
 
-export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
-};
+interface User {
+  email: string;
+  password: string;
+  role: string;
+}
+
+async function signUp(user: User) {
+  try {
+    const response = await axios.post<User>('/api/auth/login', user);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        console.error(error.response.data);
+      } else {
+        console.error(error.message);
+      }
+    }
+    return null;
+  }
+}
+
+
 
 const SignIn: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const user = await signUp({ email, password, role });
+    console.log(user);
+    if (user?.role === "SELLER") {
+      <Link href="/ecommerce" />
+      console.log("Navigating to company profile")
+    } else {
+
+    }
+  };
+
   return (
 
     <div className="rounded-sm border p-16 m-12 border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -167,10 +206,10 @@ const SignIn: React.FC = () => {
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             <span className="mb-1.5 block font-medium">Start for free</span>
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-              Sign In to TailAdmin
+              Sign In to Nexus Trade
             </h2>
 
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Email
@@ -178,6 +217,7 @@ const SignIn: React.FC = () => {
                 <div className="relative">
                   <input
                     type="email"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
@@ -202,15 +242,16 @@ const SignIn: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
+
+              <div className="mb-4">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Re-type Password
+                  Password
                 </label>
                 <div className="relative">
                   <input
                     type="password"
-                    placeholder="6+ Characters, 1 Capital letter"
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-white outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    placeholder="Enter your password"
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
                   <span className="absolute right-4 top-4">
@@ -236,6 +277,20 @@ const SignIn: React.FC = () => {
                   </span>
                 </div>
               </div>
+              <div className="mb-4">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  Role
+                </label>
+                <div className="relative">
+                  <select value={role} onChange={(e) => setRole(e.target.value)} required className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+                    <option value="">Select Role</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="BUYER">Buyer</option>
+                    <option value="SELLER">Seller</option>
+                  </select>
+                </div>
+              </div>
+
 
               <div className="mb-5">
                 <input

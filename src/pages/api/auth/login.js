@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
-import { withIronSession } from 'next-iron-session';
+import withSession from '../../../lib/session';
 const prisma = new PrismaClient();
 
 async function handler(req, res) {
@@ -25,11 +25,4 @@ async function handler(req, res) {
       res.json(user.email)
 }
 
-//It will save the session as a cookie to implement a protected route
-export default withIronSession(handler, {
-      password: process.env.SECRET_COOKIE_PASSWORD,
-      cookieName: 'next-iron-session/login',
-      cookieOptions: {
-            secure: process.env.NODE_ENV === 'production',
-      },
-});
+export default withSession(handler);

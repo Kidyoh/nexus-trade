@@ -46,13 +46,42 @@ model BuyerProfile {
   purchases Transaction[]
 }
 
+model ProductType {
+  id       Int       @id @default(autoincrement())
+  type     String    @unique
+  subTypes SubType[]
+  products Product[]
+}
+
+model SubType {
+  id           Int          @id @default(autoincrement())
+  name         String
+  productTypeId Int
+  productType  ProductType  @relation(fields: [productTypeId], references: [id])
+  taxRate      TaxRate?     @relation(fields: [taxRateId], references: [id])
+  taxRateId    Int?         @unique
+  @@index([productTypeId])
+}
+
+model TaxRate {
+  id      Int       @id @default(autoincrement())
+  type    TaxType
+  maxRate Float
+  minRate Float
+  Exempt  Float
+  subType SubType?
+  products Product[]
+  
+}
+
 model Product {
   id             Int       @id @default(autoincrement())
   name           String
   description    String
-  type           ProductType
+  typeId         Int
+  type           ProductType @relation(fields: [typeId], references: [id])
   price          Float
-  taxRate        Float
+  taxRates        TaxRate[]
   quantity       Int
   sellerId       Int
   seller         SellerProfile @relation(fields: [sellerId], references: [id])
@@ -61,8 +90,9 @@ model Product {
   transactions   Transaction[]
 
   @@index([sellerId])
-
+  @@index([typeId])
 }
+
 
 model Transaction {
   id              Int       @id @default(autoincrement())
@@ -83,21 +113,12 @@ model Transaction {
   @@index([buyerId])
 }
 
-model TaxRate {
-  id      Int       @id @default(autoincrement())
-  type    TaxType
-  rate    Float
-}
+
 
 enum Role {
   ADMIN
   SELLER
   BUYER
-}
-
-enum ProductType {
-  PRODUCT
-  SERVICE
 }
 
 enum PaymentStatus {

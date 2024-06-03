@@ -1,9 +1,6 @@
-import { redirect } from "next/navigation";
+import withSession from "../../../lib/session";
 
-export default async function logout(req) {
-      if (req.method === 'POST') {
-            const session = await getSession();
-            session.destroy();
-            redirect("/")
-      }
-}
+export default withSession(async (req, res) => {
+      req.session.destroy();
+      res.status(200).json({ message: 'Logged out' });
+})

@@ -60,6 +60,8 @@ model Product {
   updatedAt      DateTime  @updatedAt
   transactions   Transaction[]
 
+  @@index([sellerId])
+
 }
 
 model Transaction {
@@ -77,6 +79,8 @@ model Transaction {
   updatedAt       DateTime  @updatedAt
   userId          Int @unique
   user            User  @relation(fields: [userId], references: [id])
+
+  @@index([buyerId])
 }
 
 model TaxRate {

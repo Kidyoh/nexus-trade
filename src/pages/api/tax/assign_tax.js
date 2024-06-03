@@ -9,14 +9,16 @@ export default withSession(async (req, res) => {
   }
 
   if (req.method === 'POST') {
-    const { subProductTypeId, type, rate } = req.body;
+    const { subProductTypeId, type, maxRate, minRate, Exempt } = req.body;
 
     try {
       const taxRate = await prisma.taxRate.create({
         data: {
           type,
-          rate,
-          subProductType: { connect: { id: subProductTypeId } },
+          maxRate,
+          minRate,
+          Exempt,
+          subType: { connect: { id: subProductTypeId } },
         },
       });
       res.status(201).json(taxRate);

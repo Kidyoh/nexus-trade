@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  fullName      String
+  email         String    @unique
+  phone         String
+  address       String
+  username      String    @unique
+  password      String
+  role          Role
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sellerProfile SellerProfile?
+  buyerProfile  BuyerProfile?
+  transactions  Transaction[]
+}
+
+model SellerProfile {
+  id            Int       @id @default(autoincrement())
+  companyName   String
+  taxpayerID    String    @unique
+  businessSector String
+  registeredTax String
+  capitalAmount Float
+  userId        Int
+  user          User      @relation(fields: [userId], references: [id])
+  products      Product[]
+}
+
+model BuyerProfile {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  purchases Transaction[]
+}
+
+model Product {
+  id             Int       @id @default(autoincrement())
+  name           String
+  description    String
+  type           ProductType
+  price          Float
+  taxRate        Float
+  quantity       Int
+  sellerId       Int
+  seller         SellerProfile @relation(fields: [sellerId], references: [id])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Transaction {
+  id              Int       @id @default(autoincrement())
+  buyerId         Int
+  buyer           BuyerProfile @relation(fields: [buyerId], references: [id])
+  productId       Int
+  product         Product      @relation(fields: [productId], references: [id])
+  quantity        Int
+  totalPrice      Float
+  paymentNumber   String
+  paymentExpires  DateTime
+  paymentStatus   PaymentStatus @default(PENDING)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model TaxRate {
+  id      Int       @id @default(autoincrement())
+  type    TaxType
+  rate    Float
+}
+
+enum Role {
+  ADMIN
+  SELLER
+  BUYER
+}
+
+enum ProductType {
+  PRODUCT
+  SERVICE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  EXPIRED
+}
+
+enum TaxType {
+  VAT
+  TOT
+  EXCISE
+  CUSTOMS
+  SUR_TAX
+}
+
+

@@ -8,7 +8,7 @@ async function handleSeller(req, res) {
             return res.status(401).send('Unauthorized');
       }
 
-      const { name, description, price, quantity, typeId, subProductTypeId } = req.body;
+      const { name, description, price, quantity, typeId, subTypeId } = req.body;
 
       const product = await prisma.product.create({
             data: {
@@ -17,7 +17,7 @@ async function handleSeller(req, res) {
                   price,
                   quantity,
                   typeId,
-                  subProductTypeId,
+                  subTypeId,
                   sellerId: user.id,
             },
       });

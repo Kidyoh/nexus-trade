@@ -1,5 +1,5 @@
-import { prisma } from '../../../lib/prisma';
-import { withSession } from '../../../lib/session';
+import prisma from '../../../lib/prisma';
+import withSession from '../../../lib/session';
 
 export default withSession(async (req, res) => {
       const user = req.session.get('user');

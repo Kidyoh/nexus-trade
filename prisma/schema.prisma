@@ -58,7 +58,8 @@ model SubType {
   name         String
   productTypeId Int
   productType  ProductType  @relation(fields: [productTypeId], references: [id])
-  taxRate      TaxRate?     @relation(fields: [taxRateId], references: [id])
+  taxRates TaxRate[]
+  products Product[]
   taxRateId    Int?         @unique
   @@index([productTypeId])
 }
@@ -69,9 +70,10 @@ model TaxRate {
   maxRate Float
   minRate Float
   Exempt  Float
-  subType SubType?
-  products Product[]
-  
+  subTypeId Int
+  subType   SubType @relation(fields: [subTypeId], references: [id]) 
+
+  @@index([subTypeId])
 }
 
 model Product {
@@ -80,8 +82,9 @@ model Product {
   description    String
   typeId         Int
   type           ProductType @relation(fields: [typeId], references: [id])
+  subTypeId      Int
+  subType        SubType     @relation(fields: [subTypeId], references: [id])
   price          Float
-  taxRates        TaxRate[]
   quantity       Int
   sellerId       Int
   seller         SellerProfile @relation(fields: [sellerId], references: [id])
@@ -91,8 +94,8 @@ model Product {
 
   @@index([sellerId])
   @@index([typeId])
+  @@index([subTypeId])
 }
-
 
 model Transaction {
   id              Int       @id @default(autoincrement())

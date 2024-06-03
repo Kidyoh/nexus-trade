@@ -13,7 +13,12 @@ export interface SubProductType {
   productTypeId: number;
 }
 
-const SelectGroupOne: React.FC = () => {
+interface SelectGroupOneProps {
+  onProductTypeChange: (typeId: number | null) => void;
+  onSubProductTypeChange: (subTypeId: number | null) => void;
+}
+
+const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ onProductTypeChange, onSubProductTypeChange }) => {
   const [selectedProductType, setSelectedProductType] = useState<ProductType | null>(null);
   const [selectedSubOption, setSelectedSubOption] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
@@ -21,14 +26,36 @@ const SelectGroupOne: React.FC = () => {
 
 
   useEffect(() => {
-    fetch('/api/product/getProduct')
+    fetch('/api/product/getProductType')
       .then(response => response.json())
       .then(data => setProductTypes(data));
   }, []);
 
   const changeTextColor = () => {
     setIsOptionSelected(true);
+
   };
+
+  const handleProductTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedType = e.target.value;
+    const selectedTypeObj = productTypes.find(pt => pt.type === selectedType) ?? null;
+    setSelectedProductType(selectedTypeObj);
+    changeTextColor();
+
+    // call the callback function with the selected product type's id
+    onProductTypeChange(selectedTypeObj ? selectedTypeObj.id : null);
+  };
+
+  const handleSubProductTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedSubType = e.target.value;
+    setSelectedSubOption(selectedSubType);
+    changeTextColor();
+
+    // find the selected sub product type and call the callback function with its id
+    const selectedSubTypeObj = selectedProductType?.subTypes?.find(st => st.name === selectedSubType);
+    onSubProductTypeChange(selectedSubTypeObj ? selectedSubTypeObj.id : null);
+  };
+
 
   return (
     <div className="mb-4.5">
@@ -39,12 +66,7 @@ const SelectGroupOne: React.FC = () => {
       <div className="relative z-20 bg-transparent dark:bg-form-input">
         <select
           value={selectedProductType ? selectedProductType.type : ""}
-          onChange={(e) => {
-            const selectedType = e.target.value;
-            const selectedTypeObj = productTypes.find(pt => pt.type === selectedType) ?? null;
-            setSelectedProductType(selectedTypeObj);
-            changeTextColor();
-          }}
+          onChange={handleProductTypeChange}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? "text-black dark:text-white" : ""
             }`}
         >
@@ -87,10 +109,7 @@ const SelectGroupOne: React.FC = () => {
       <div className="relative z-20 bg-transparent dark:bg-form-input">
         <select
           value={selectedSubOption}
-          onChange={(e) => {
-            setSelectedSubOption(e.target.value);
-            changeTextColor();
-          }}
+          onChange={handleSubProductTypeChange}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? "text-black dark:text-white" : ""
             }`}
         >

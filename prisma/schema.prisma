@@ -10,9 +10,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
 
 model User {
   id            Int       @id @default(autoincrement())
@@ -37,14 +34,14 @@ model SellerProfile {
   businessSector String
   registeredTax String
   capitalAmount Float
-  userId        Int
-  user          User      @relation(fields: [userId], references: [id])
+  userId        Int       @unique
+  user          User      @relation(fields: [userId], references: [id]) 
   products      Product[]
 }
 
 model BuyerProfile {
   id        Int       @id @default(autoincrement())
-  userId    Int
+  userId    Int       @unique
   user      User      @relation(fields: [userId], references: [id])
   purchases Transaction[]
 }
@@ -61,14 +58,16 @@ model Product {
   seller         SellerProfile @relation(fields: [sellerId], references: [id])
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+  transactions   Transaction[]
+
 }
 
 model Transaction {
   id              Int       @id @default(autoincrement())
   buyerId         Int
   buyer           BuyerProfile @relation(fields: [buyerId], references: [id])
-  productId       Int
-  product         Product      @relation(fields: [productId], references: [id])
+  productId       Int @unique
+  product         Product      @relation(fields: [productId], references: [id]) 
   quantity        Int
   totalPrice      Float
   paymentNumber   String
@@ -76,6 +75,8 @@ model Transaction {
   paymentStatus   PaymentStatus @default(PENDING)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  userId          Int @unique
+  user            User  @relation(fields: [userId], references: [id])
 }
 
 model TaxRate {

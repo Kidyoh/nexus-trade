@@ -1,3 +1,6 @@
+import withSession from "../../../lib/session";
+import prisma from "../../../lib/prisma";
+
 async function handleCreateSellerProfile(req, res) {
       const user = req.session.get('user');
 

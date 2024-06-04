@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma";
 
 async function handleGetProducts(req, res) {
       const user = req.session.get('user');
-      const { sellerId } = req.body;
+      const { sellerId } = req.query;
 
       if (!sellerId) {
             console.log(res)

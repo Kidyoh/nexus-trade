@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
     const user = await signUp({ email, password, role });
     console.log(user);
     if (user?.role === "SELLER") {
-      <Link href="/ecommerce" />
+      <Link href="/products" />
       console.log("Navigating to company profile")
     } else {
 

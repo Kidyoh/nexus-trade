@@ -3,6 +3,7 @@ import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
+import Router from 'next/router';
 
 
 interface User {
@@ -43,14 +44,16 @@ const SignUp: React.FC = () => {
   const [address, setAddress] = useState('');
   const [role, setRole] = useState('');
 
+  ;
+
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const user = await signUp({ fullName, username, email, password, phone, address, role });
     console.log(user);
     if (user?.role === "SELLER") {
-      <Link href="/ecommerce" />
-      console.log("Navigating to company profile")
+      console.log("Navigating to company profile");
+      Router.push('/sellerProfile');
     } else {
 
     }
@@ -406,6 +409,7 @@ const SignUp: React.FC = () => {
                 <div className="relative">
                   <input
                     type="password"
+                    value={password} onChange={(e) => setPassword(e.target.value)} required
                     placeholder="Enter your password"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />

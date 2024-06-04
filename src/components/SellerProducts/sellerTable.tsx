@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from 'react';
 
 interface DataItem {
@@ -7,7 +8,7 @@ interface DataItem {
       price: number;
 }
 
-const TableThree = () => {
+const SellerTable = () => {
       const [data, setData] = useState<DataItem[]>([]);
 
       useEffect(() => {
@@ -135,4 +136,4 @@ const TableThree = () => {
       );
 };
 
-export default TableThree;
+export default SellerTable;

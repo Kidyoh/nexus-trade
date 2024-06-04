@@ -19,6 +19,7 @@ async function handler(req, res) {
       if (user.role !== role) {
             return res.status(403).json({ message: 'Access denied' });
       }
+      //Sets session userId and user role, we can customize this any way we want.
       req.session.set('user', { id: user.id, role: user.role });
       await req.session.save();
       res.json({ message: 'Logged in' });

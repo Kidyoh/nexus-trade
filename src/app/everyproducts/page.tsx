@@ -15,7 +15,9 @@ interface Product {
       sellerId: number;
 }
 
+
 const ProductsPage: React.FC = () => {
+//managing product state change 
       const [products, setProducts] = React.useState<Product[]>([]);
 
       React.useEffect(() => {
@@ -23,6 +25,8 @@ const ProductsPage: React.FC = () => {
                   .then((response) => response.json())
                   .then(setProducts);
       }, []);
+
+      //map products to product id
 
       return (
             <DefaultLayout>

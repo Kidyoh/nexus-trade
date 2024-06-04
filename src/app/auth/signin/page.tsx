@@ -48,6 +48,7 @@ const SignIn: React.FC = () => {
 
     }
   };
+  
 
   return (
 
@@ -208,6 +209,9 @@ const SignIn: React.FC = () => {
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
               Sign In to Nexus Trade
             </h2>
+
+      {/* login form  */}
+      
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">

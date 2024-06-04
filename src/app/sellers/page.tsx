@@ -26,6 +26,8 @@ const SellersList: React.FC = () => {
             fetchSellers();
       }, []);
 
+
+      // mapping sellers with seller id
       return (
             <DefaultLayout>
                   <Breadcrumb pageName='Seller' />

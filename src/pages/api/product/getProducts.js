@@ -5,6 +5,7 @@ async function handleGetProducts(req, res) {
       const user = req.session.get('user');
       const { sellerId } = req.query;
 
+      // if sellerId isnt there wont show the products
       if (!sellerId) {
             console.log(res)
             return res.status(400).send('Seller ID is required');

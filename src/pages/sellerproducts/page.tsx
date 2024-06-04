@@ -24,6 +24,7 @@ const SellerProductsPage: React.FC<Props> = ({ products }) => {
   const sellerId = query.sellerId as string | undefined;
 
   return (
+    //Mapping products to theeir products id
     <DefaultLayout>
       <Breadcrumb pageName={`Products for Seller ${sellerId}`} />
       <div className="grid gap-4">
@@ -40,13 +41,14 @@ const SellerProductsPage: React.FC<Props> = ({ products }) => {
 
 export const getServerSideProps: GetServerSideProps<Props, Params> = async (context) => {
   const { sellerId } = context.params as Params;
-
+//check for existing of seller
   if (!sellerId) {
     return {
       notFound: true,
     };
   }
 
+  // get seller ifnformation based on sellerid is equal to SellerId from the products
   const products = await prisma.product.findMany({
     where: {
       sellerId: Number(sellerId),

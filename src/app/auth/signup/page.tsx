@@ -3,7 +3,7 @@ import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 
 interface User {
@@ -44,18 +44,20 @@ const SignUp: React.FC = () => {
   const [address, setAddress] = useState('');
   const [role, setRole] = useState('');
 
-  ;
-
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const user = await signUp({ fullName, username, email, password, phone, address, role });
     console.log(user);
+
+    const router = useRouter(); // get the router instance
+
     if (user?.role === "SELLER") {
       console.log("Navigating to company profile");
-      Router.push('/sellerProfile');
+      router.push('/sellerProfile'); // use the router instance to navigate
     } else {
-
+      console.log("Navigating to add profile");
+      router.push('/addProfile'); // use the router instance to navigate
     }
   };
 
@@ -217,6 +219,8 @@ const SignUp: React.FC = () => {
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
               Sign Up to Nexus Trade
             </h2>
+
+            {/* Registration form */}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">

@@ -4,6 +4,7 @@ import SelectGroupOne from "../SelectGroup/productTypeDropdown";
 
 
 const Products = () => {
+      //assign state 
       const [name, setName] = useState('');
       const [description, setDescription] = useState('');
       const [price, setPrice] = useState(0);
@@ -11,6 +12,7 @@ const Products = () => {
       const [selectedProductTypeId, setSelectedProductTypeId] = useState<number | null>(null);
       const [selectedSubProductTypeId, setSelectedSubProductTypeId] = useState<number | null>(null);
 
+      //
       const handleSubmit = async (event: any) => {
             event.preventDefault();
             console.log('Submitting form with subTypeId:', selectedSubProductTypeId);
@@ -41,6 +43,8 @@ const Products = () => {
 
 
       return (
+
+            
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                   <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                         <h3 className="font-medium text-black dark:text-white">

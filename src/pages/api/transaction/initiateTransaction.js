@@ -34,6 +34,7 @@ async function initiateTransaction(req, res) {
             const taxAmount = totalPrice * taxRate.maxRate;
             totalTaxAmount += taxAmount;
         });
+        
 
         const totalPriceWithTax = totalPrice + totalTaxAmount;
 

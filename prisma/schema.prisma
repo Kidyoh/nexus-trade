@@ -1,3 +1,5 @@
+
+//schema design for all stracture
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
@@ -10,6 +12,8 @@ datasource db {
   relationMode = "prisma"
 }
 
+
+//table design for user()
 
 model User {
   id            Int       @id @default(autoincrement())
@@ -26,7 +30,8 @@ model User {
   buyerProfile  BuyerProfile?
   transactions  Transaction[]
 }
-
+ 
+//Table for seller profile
 model SellerProfile {
   id            Int       @id @default(autoincrement())
   companyName   String
@@ -38,6 +43,8 @@ model SellerProfile {
   user          User      @relation(fields: [userId], references: [id]) 
   products      Product[]
 }
+
+//Table for buyerprofile
 
 model BuyerProfile {
   id        Int       @id @default(autoincrement())

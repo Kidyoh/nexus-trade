@@ -4,9 +4,9 @@ import Products from "@/components/Products/product_create";
 import CreateSellerProfile from "@/components/SellerProducts/sellerProfile";
 
 export const metadata: Metadata = {
-      title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
+      title: "This is a seller profile creation page",
       description:
-            "This is Next.js Calender page for TailAdmin  Tailwind CSS Admin Dashboard Template",
+            "In this page you create your company profile.",
 };
 
 const ProductAddPage = () => {

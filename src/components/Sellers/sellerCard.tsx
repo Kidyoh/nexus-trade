@@ -11,7 +11,7 @@ interface SellerCardProps {
 }
 
 const SellerCard: React.FC<SellerCardProps> = ({ seller }) => (
-      <Link href={`/sellerProducts/${seller.id}`} passHref legacyBehavior>
+      <Link href={`/sellerproducts/${seller.id}`} passHref legacyBehavior>
             <a className="block p-6 m-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in">
                   <div className="grid gap-4">
                         <h2 className="text-xl font-bold">{seller.fullName}</h2>

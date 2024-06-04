@@ -1,50 +1,34 @@
-import React, { useState, useEffect } from 'react';
+// components/ProductCard.tsx
+
+import React from 'react';
 
 interface Product {
-      id: number;
+      id: string;
       name: string;
       description: string;
+      typeId: number;
+      subTypeId: number;
       price: number;
-}
-
-interface ProductsListProps {
+      quantity: number;
       sellerId: number;
 }
 
-const ProductsList: React.FC<ProductsListProps> = ({ sellerId }) => {
-      const [products, setProducts] = useState<Product[]>([]);
-
-      useEffect(() => {
-            // Fetch products data when the component mounts
-            fetch('/api/product/getProducts', {
-                  method: 'POST',
-                  headers: {
-                        'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                        sellerId,
-                  }),
-            })
-                  .then(response => response.json())
-                  .then(data => setProducts(data))
-                  .catch(error => console.error(error));
-      }, [sellerId]);
-
-      if (!products.length) {
-            return <div>No products found</div>;
-      }
-
-      return (
-            <div>
-                  {products.map(product => (
-                        <div key={product.id}>
-                              <h2>{product.name}</h2>
-                              <p>{product.description}</p>
-                              <p>{product.price}</p>
-                        </div>
-                  ))}
-            </div>
-      );
+interface ProductCardProps {
+      product: Product;
 }
 
-export default ProductsList;
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => (
+      <div className="block p-6 m-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in">
+            <div className="grid gap-4">
+                  <h2 className="text-xl font-bold">{product.name}</h2>
+                  <p className="text-gray-600">{product.description}</p>
+                  <p className="text-gray-600">Type ID: {product.typeId}</p>
+                  <p className="text-gray-600">Sub Type ID: {product.subTypeId}</p>
+                  <p className="text-gray-600">Price: {product.price}</p>
+                  <p className="text-gray-600">Quantity: {product.quantity}</p>
+                  <p className="text-gray-600">Seller ID: {product.sellerId}</p>
+            </div>
+      </div>
+);
+
+export default ProductCard;

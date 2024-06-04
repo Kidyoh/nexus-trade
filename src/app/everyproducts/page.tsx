@@ -1,0 +1,37 @@
+"use client";
+import React from 'react';
+import ProductCard from '../../components/SellerProducts/allProducts';
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
+
+interface Product {
+      id: string;
+      name: string;
+      description: string;
+      typeId: number;
+      subTypeId: number;
+      price: number;
+      quantity: number;
+      sellerId: number;
+}
+
+const ProductsPage: React.FC = () => {
+      const [products, setProducts] = React.useState<Product[]>([]);
+
+      React.useEffect(() => {
+            fetch('/api/product/getAllProducts')
+                  .then((response) => response.json())
+                  .then(setProducts);
+      }, []);
+
+      return (
+            <DefaultLayout>
+                  <div>
+                        {products.map((product) => (
+                              <ProductCard key={product.id} product={product} />
+                        ))}
+                  </div>
+            </DefaultLayout>
+      );
+};
+
+export default ProductsPage;

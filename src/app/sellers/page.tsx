@@ -1,6 +1,6 @@
 "use client";
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
-import SellerCard from '../../components/Sellers/sellerCard'; // replace with actual import
+import SellerCard from '../../components/Sellers/sellerCard';
 import { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 

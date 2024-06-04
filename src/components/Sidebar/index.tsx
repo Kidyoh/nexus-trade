@@ -70,7 +70,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <Image
             width={176}
             height={32}
-            src={"/images/logo/logo.svg"}
+            src={"/images/logo/nexsus.png"}
             alt="Logo"
             priority
           />
@@ -199,7 +199,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </SidebarLinkGroup>
               {/* <!-- Menu Item Dashboard --> */}
 
-             
+
               {/* <!-- Menu Item Profile --> */}
               <li>
                 <Link
@@ -230,8 +230,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Profile --> */}
 
-              
-            
+
+
             </ul>
           </div>
 

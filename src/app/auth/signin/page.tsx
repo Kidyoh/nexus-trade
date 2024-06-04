@@ -48,7 +48,7 @@ const SignIn: React.FC = () => {
 
     }
   };
-  
+
 
   return (
 
@@ -59,14 +59,14 @@ const SignIn: React.FC = () => {
             <Link className="mb-5.5 inline-block" href="/">
               <Image
                 className="hidden dark:block"
-                src={"/images/logo/logo.svg"}
+                src={"/images/logo/nexsus.png"}
                 alt="Logo"
                 width={176}
                 height={32}
               />
               <Image
                 className="dark:hidden"
-                src={"/images/logo/logo-dark.svg"}
+                src={"/images/logo/nexsus.png"}
                 alt="Logo"
                 width={176}
                 height={32}
@@ -74,8 +74,7 @@ const SignIn: React.FC = () => {
             </Link>
 
             <p className="2xl:px-20">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-              suspendisse.
+              Login to get the full experience, you won't be dissapointed.
             </p>
 
             <span className="mt-15 inline-block">
@@ -210,8 +209,8 @@ const SignIn: React.FC = () => {
               Sign In to Nexus Trade
             </h2>
 
-      {/* login form  */}
-      
+            {/* login form  */}
+
 
             <form onSubmit={handleSubmit}>
               <div className="mb-4">

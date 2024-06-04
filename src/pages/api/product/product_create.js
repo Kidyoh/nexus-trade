@@ -8,6 +8,8 @@ async function handleSeller(req, res) {
             return res.status(401).send('Unauthorized');
       }
 
+      // Creates new product with Product Type and Sub Type
+
       const { name, description, price, quantity, typeId, subTypeId } = req.body;
 
       const product = await prisma.product.create({

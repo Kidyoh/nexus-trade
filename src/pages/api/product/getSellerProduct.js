@@ -7,7 +7,7 @@ async function handleGetProducts(req, res) {
       if (!user || user.role !== 'SELLER' && user.role !== 'ADMIN') {
             return res.status(401).send('Unauthorized');
       }
-
+      // Here we find products based on the session User Id and display it.
       const products = await prisma.product.findMany({
             where: {
                   sellerId: user.id,

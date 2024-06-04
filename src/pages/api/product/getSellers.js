@@ -6,6 +6,7 @@ async function handler(req, res) {
 
       if (req.method === 'GET') {
             try {
+                  // Finds all users with a role "SELLER"
                   const sellers = await prisma.user.findMany({
                         where: {
                               role: 'SELLER',

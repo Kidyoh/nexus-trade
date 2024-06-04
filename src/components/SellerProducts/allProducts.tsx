@@ -1,5 +1,3 @@
-// components/ProductCard.tsx
-
 import React from 'react';
 
 interface Product {
@@ -18,6 +16,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => (
+      // Maps out the products in a card form
       <div className="block p-6 m-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in">
             <div className="grid gap-4">
                   <h2 className="text-xl font-bold">{product.name}</h2>

@@ -1,13 +1,12 @@
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Products from "@/components/Products/product_create";
 import SellerTable from "@/components/SellerProducts/sellerTable";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 export const metadata: Metadata = {
-      title: "Next.js Calender | TailAdmin - Next.js Dashboard Template",
+      title: "Seller Table, here we show your products",
       description:
-            "This is Next.js Calender page for TailAdmin  Tailwind CSS Admin Dashboard Template",
+            "This is where you can find all of your posted products",
 };
 
 const ProductAddPage = () => {

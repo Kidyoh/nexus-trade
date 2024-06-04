@@ -2,6 +2,7 @@
 import React from 'react';
 import ProductCard from '../../components/SellerProducts/allProducts';
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
 interface Product {
       id: string;
@@ -25,6 +26,7 @@ const ProductsPage: React.FC = () => {
 
       return (
             <DefaultLayout>
+                  <Breadcrumb pageName='Shop' />
                   <div>
                         {products.map((product) => (
                               <ProductCard key={product.id} product={product} />

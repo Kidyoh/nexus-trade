@@ -29,16 +29,8 @@ async function handleTax(req, res) {
         return res.status(404).json({ error: 'SubProductType not found' });
       }
 
-      // Check if a TaxRate with the same type name already exists
-      const existingTaxRate = await prisma.taxRate.findFirst({
-        where: { type },
-      });
-
-      if (existingTaxRate) {
-        return res.status(400).json({ error: 'TaxRate with this type name already exists' });
-      }
-
-      // Create a new TaxRate for the SubType
+      //Todo: If there exists a taxRate on the subType, update that tax rate
+      
       await prisma.taxRate.create({
         data: {
           type,
@@ -54,6 +46,8 @@ async function handleTax(req, res) {
         where: { id: subProductTypeId },
         include: { taxRates: true },
       });
+
+      //response will be subType with rates
 
       res.status(201).json(subTypeWithTaxRates);
     } catch (error) {

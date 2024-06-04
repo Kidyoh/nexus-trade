@@ -99,7 +99,7 @@ model Product {
 }
 
 model Transaction {
-  id              Int       @id @default(autoincrement())
+  id              Int          @id @default(autoincrement())
   buyerId         Int
   buyer           BuyerProfile @relation(fields: [buyerId], references: [id])
   productId       Int 
@@ -111,15 +111,27 @@ model Transaction {
   paymentNumber   String
   paymentExpires  DateTime
   paymentStatus   PaymentStatus @default(PENDING)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
   userId          Int 
-  user            User  @relation(fields: [userId], references: [id])
+  user            User         @relation(fields: [userId], references: [id])
+  invoice         Invoice?     
+  invoiceId       Int?         @unique  
 
   @@index([buyerId])
   @@index([userId])
   @@index([subTypeId])
   @@index([productId])
+}
+
+model Invoice {
+  id              Int          @id @default(autoincrement())
+  transaction     Transaction  @relation(fields: [transactionId], references: [id])
+  transactionId   Int          @unique 
+  transactionNumber String
+  amountPaid      Float
+  productName     String
+  createdAt       DateTime     @default(now())
 }
 
 
@@ -130,7 +142,7 @@ enum Role {
   BUYER
 }
 
-enum PaymentStatus {
+enum PaymentStatus {33
   PENDING
   COMPLETED
   EXPIRED

@@ -27,6 +27,7 @@ async function handleAdmin(req, res) {
             });
             res.json(updatedProductType);
       } else {
+            //If the product type doesn't exist, it will create a new one.
 
             const newProductType = await prisma.productType.create({
                   data: {

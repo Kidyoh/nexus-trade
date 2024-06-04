@@ -16,6 +16,7 @@ const SellersList: React.FC = () => {
       const [sellers, setSellers] = useState<Seller[]>([]);
 
       useEffect(() => {
+            // Fetches all sellers 
             const fetchSellers = async () => {
                   const res = await fetch('/api/product/getSellers');
                   const data: Seller[] = await res.json();

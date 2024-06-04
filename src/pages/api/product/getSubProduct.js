@@ -2,6 +2,8 @@ import prisma from '../../../lib/prisma';
 
 async function handle(req, res) {
   const { productTypeName } = req.query;
+
+  //Finds the product Type including the Sub Product Type
   const productType = await prisma.productType.findFirst({
     where: {
       name: productTypeName,

@@ -2,10 +2,11 @@ import withSession from '../../../lib/session';
 import prisma from '../../../lib/prisma';
 
 async function handler(
-      req,
+      _req,
       res
 ) {
       try {
+            // Returns all products available in the database
             const products = await prisma.product.findMany();
             res.status(200).json(products);
       } catch (error) {

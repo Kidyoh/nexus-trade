@@ -10,6 +10,7 @@ export default withSession(async (req, res) => {
 
       if (req.method === 'GET') {
             try {
+                  // Searches for assigned tax rates
                   const taxRates = await prisma.taxRate.findMany({
                         include: {
                               subType: true,
@@ -20,9 +21,13 @@ export default withSession(async (req, res) => {
                   res.status(500).json({ error: 'Failed to get tax rates' });
             }
       } else if (req.method === 'POST') {
+            // creates tax rate if there is no tax rate assigned
             const { subProductTypeId, type, maxRate, minRate, Exempt } = req.body;
 
             try {
+
+                  // Creates a taxRate for the designated subType
+                  
                   const taxRate = await prisma.taxRate.create({
                         data: {
                               type,
